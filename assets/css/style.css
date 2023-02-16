@@ -1,32 +1,40 @@
 .socket {
     height:9vw;
     max-height: 90px;
-    background-color: aquamarine;
     border-radius: 10px;
     width:9vw;
     max-width: 90px;
 }
 .socket-row {
-
     width:60vw;
     max-width: 600px;
     margin:auto;
 }
-.main-queue-object {
+#position0 {
     height:9vw;
     max-height: 90px;
-    background-color: aquamarine;
     border-radius: 10px;
     width:9vw;
     margin: auto;
     max-width: 90px;
 }
-.secondary-queue-objects {
+#position2, #position1 {
     height:6vw;
     max-height: 60px;
-    background-color: aquamarine;
     border-radius: 10px;
     width:6vw;
     max-width: 60px;
     margin: auto;
+}
+.empty {
+    background-color: rgb(255, 218, 125);
+}
+.grass {
+    background-color: aquamarine;
+}
+.bush {
+    background-color: rgb(26, 186, 61);
+}
+.tree {
+    background-color: brown;
 }
