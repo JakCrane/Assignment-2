@@ -9,6 +9,9 @@
     width:60vw;
     max-width: 600px;
     margin:auto;
+    background-color: rgb(26, 186, 61);
+    padding:4px;
+    border-radius: 10px;
 }
 #position0 {
     height:9vw;
@@ -33,7 +36,7 @@
     background-color: rgb(26, 186, 61);
     background-image: url(/assets/images/pixil-frame-0\ \(5\).png);
     background-repeat: no-repeat;
-    background-image: center center;
+    background-image: center;
     background-size: contain;
 }
 .bush {
@@ -47,21 +50,21 @@
     background-color: rgb(26, 186, 61);
     background-image: url(/assets/images/image-removebg-preview\ \(1\).png);
     background-repeat: no-repeat;
-    background-image: center center;
+    background-image: center;
     background-size: contain;
 }
 .hut {
     background-color: rgb(26, 186, 61);
     background-image: url(/assets/images/image-removebg-preview\ \(2\).png);
     background-repeat: no-repeat;
-    background-image: center center;
+    background-image: center;
     background-size: contain;
 }
 .house {
     background-color: rgb(26, 186, 61);
     background-image: url(/assets/images/image-removebg-preview\ \(3\).png);
     background-repeat: no-repeat;
-    background-image: center center;
+    background-image: center;
     background-size: contain;
 }
 #hidden-score-card {
@@ -69,4 +72,13 @@
 }
 #unhidden-score-card {
     display:block;
+}
+#score-popup {
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+.root {
+    position: relative;
+    background-color: blue;
 }
