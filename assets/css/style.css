@@ -30,8 +30,8 @@
     background-color: rgb(255, 218, 125);
 }
 .grass {
-    background-color: aquamarine;
-    background-image: url(/assets/images/Screenshot_from_2023-02-17_16-10-34-removebg-preview.png);
+    background-color: rgb(26, 186, 61);
+    background-image: url(/assets/images/pixil-frame-0\ \(5\).png);
     background-repeat: no-repeat;
     background-image: center center;
     background-size: contain;
@@ -44,21 +44,21 @@
     background-size: contain;
 }
 .tree {
-    background-color: brown;
+    background-color: rgb(26, 186, 61);
     background-image: url(/assets/images/image-removebg-preview\ \(1\).png);
     background-repeat: no-repeat;
     background-image: center center;
     background-size: contain;
 }
 .hut {
-    background-color: gray;
+    background-color: rgb(26, 186, 61);
     background-image: url(/assets/images/image-removebg-preview\ \(2\).png);
     background-repeat: no-repeat;
     background-image: center center;
     background-size: contain;
 }
 .house {
-    background-color: gray;
+    background-color: rgb(26, 186, 61);
     background-image: url(/assets/images/image-removebg-preview\ \(3\).png);
     background-repeat: no-repeat;
     background-image: center center;
