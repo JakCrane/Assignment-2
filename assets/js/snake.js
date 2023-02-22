@@ -14,10 +14,7 @@ var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var
 var newDirection = 1;
 var direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
 var size = 5;
-document.addEventListener("DOMContentLoaded", function () {
-    startGame();
-    main();
-})
+document.addEventListener("DOMContentLoaded", function () {startGame()})
 startGame = () => {
     instantiateTiles();
     if (size % 2 == 0) {
@@ -26,11 +23,10 @@ startGame = () => {
     else {
         tiles[Math.floor((size**2)/2)].snake = true;
         tiles[Math.floor((size**2)/2)].head = true;}
-    console.log(JSON.parse(JSON.stringify(tiles)), "initialise function")
     genFood();
     drawCanvas();
     length = 1;
-    console.log(JSON.parse(JSON.stringify(tiles)), "start function")
+    main();
 }
 instantiateTiles = () => {
     for (let i = 0; i < size**2; i++) {
@@ -51,10 +47,11 @@ drawCanvas = () => {
 }
 main = () => {
     setTimeout( function onTick() {
-        growSnake();
+        
         ageSnakeTile();
         direction = newDirection
         moveSnakeHead();
+        growSnake();
         newDirection = changeDirection();
         deleteSnakeTile(length);
         drawCanvas();
@@ -66,24 +63,24 @@ moveSnakeHead = () => {
         let tileCurrent = tile
         tile.head = false
         if (direction == 0) {
-            if (tileCurrent.y == 0) {endGame()}
-            if (tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake == true) {endGame()}
+            if (tileCurrent.y == 0) {endGame(); return}
+            if (tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake == true) {endGame(); return}
             tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake = true;
             tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].head = true;
         }
         else if (direction == 1) {
-            if (tileCurrent.x == (size - 1)) {endGame()}
-            if (tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x + 1))[0].snake == true) {endGame()}
+            if (tileCurrent.x == (size - 1)) {endGame(); return}
+            if (tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x + 1))[0].snake == true) {endGame(); return}
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x + 1))[0].snake = true;
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x + 1))[0].head = true;}
         else if (direction == 2) {
-            if (tileCurrent.y == (size - 1)) {endGame()}
-            if (tiles.filter(newTile => newTile.y == (tileCurrent.y + 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake == true) {endGame()}
+            if (tileCurrent.y == (size - 1)) {endGame(); return}
+            if (tiles.filter(newTile => newTile.y == (tileCurrent.y + 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake == true) {endGame(); return}
             tiles.filter(newTile => newTile.y == (tileCurrent.y + 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake = true;
             tiles.filter(newTile => newTile.y == (tileCurrent.y + 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].head = true;}
         else {
-            if (tileCurrent.x == 0) {endGame()}
-            if (tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x - 1))[0].snake == true) {endGame()}
+            if (tileCurrent.x == 0) {endGame(); return}
+            if (tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x - 1))[0].snake == true) {endGame(); return}
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x - 1))[0].snake = true;
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x - 1))[0].head = true;}
     }
@@ -152,11 +149,25 @@ growSnake = () => {
         ++length;
         genFood();
         drawCanvas();
-    }
+        return true
+    } else return false
 }
-endGame = () => {alert("you lose")}
-gameWin = () => {alert("you win!!!")}
-//  hasGameEnded() {
-//      define boundary conditions
-//  }
-//  score() {}
+restartGame = () => {
+    length = 1;
+    for (let tile of tiles) {
+        console.log(JSON.parse(JSON.stringify(tile)))
+        tile.snake = false;
+        tile.head = false;
+        tile.food = false;
+    }
+    if (size % 2 == 0) {
+        tiles[(size**2-size)/2].snake = true;
+        tiles[(size**2-size)/2].head = true;
+    } else {
+        tiles[Math.floor((size**2)/2)].snake = true;
+        tiles[Math.floor((size**2)/2)].head = true;
+    }
+    drawCanvas()
+}
+endGame = () => {alert(`you lose Your final length was: ${length}`); restartGame()}
+gameWin = () => {alert("you win!!!"); restartGame()}
