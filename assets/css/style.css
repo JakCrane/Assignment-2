@@ -1,72 +1,62 @@
+body {
+    background-color: rgb(255, 242, 186);
+}
+.navbar-yellow {
+    background-color: rgb(253, 228, 116);
+    color: rgb(253, 228, 116);
+}
+/*~~~~~~~~~~~ colours ~~~~~~~~~~~~*/
+.empty {
+    background-color: rgb(255, 215, 130);
+}
+.grass, .bush, .tree, .hut, .house, .socket-row {
+    background-color: #98bb7c;
+}
+/*~~~~~~~~~~~~~ merge civ ~~~~~~~~~~~~~~*/
 .socket {
     height:9vw;
     max-height: 90px;
     border-radius: 10px;
     width:9vw;
     max-width: 90px;
+    background-repeat: no-repeat;
+    background-image: center;
+    background-size: contain;
 }
 .socket-row {
     width:60vw;
     max-width: 600px;
     margin:auto;
-    background-color: rgb(26, 186, 61);
-    padding:4px;
+    padding:10px;
     border-radius: 10px;
 }
-#position0 {
-    height:9vw;
-    max-height: 90px;
+.socket-row> div:nth-child(-n+6) {margin: 0;}
+#position0, #position1, #position2 {
+    margin: 3px;    
     border-radius: 10px;
-    width:9vw;
-    margin: auto;
-    max-width: 90px;
+    background-repeat: no-repeat;
+    background-image: center;
+    background-size: contain;
+}
+#position0 {
+    height:8vw;
+    max-height: 80px;
+    width:8vw;
+    max-width: 80px; 
 }
 #position2, #position1 {
     height:6vw;
     max-height: 60px;
-    border-radius: 10px;
     width:6vw;
     max-width: 60px;
-    margin: auto;
 }
-.empty {
-    background-color: rgb(255, 218, 125);
-}
-.grass {
-    background-color: rgb(26, 186, 61);
-    background-image: url(/assets/images/pixil-frame-0\ \(5\).png);
-    background-repeat: no-repeat;
-    background-image: center;
-    background-size: contain;
-}
-.bush {
-    background-color: rgb(26, 186, 61);
-    background-image: url(/assets/images/image-removebg-preview.png);
-    background-repeat: no-repeat;
-    background-image: center center;
-    background-size: contain;
-}
-.tree {
-    background-color: rgb(26, 186, 61);
-    background-image: url(/assets/images/image-removebg-preview\ \(1\).png);
-    background-repeat: no-repeat;
-    background-image: center;
-    background-size: contain;
-}
-.hut {
-    background-color: rgb(26, 186, 61);
-    background-image: url(/assets/images/image-removebg-preview\ \(2\).png);
-    background-repeat: no-repeat;
-    background-image: center;
-    background-size: contain;
-}
-.house {
-    background-color: rgb(26, 186, 61);
-    background-image: url(/assets/images/image-removebg-preview\ \(3\).png);
-    background-repeat: no-repeat;
-    background-image: center;
-    background-size: contain;
-}
+.grass {background-image: url(/assets/images/pixil-frame-0\ \(5\).png);}
+.bush {background-image: url(/assets/images/image-removebg-preview.png);}
+.tree {background-image: url(/assets/images/image-removebg-preview\ \(1\).png);}
+.hut {background-image: url(/assets/images/image-removebg-preview\ \(2\).png);}
+.house {background-image: url(/assets/images/image-removebg-preview\ \(3\).png);}
+
+
 #hidden-score-card {
     display:none;
 }
@@ -80,5 +70,17 @@
 }
 .root {
     position: relative;
-    background-color: blue;
+    /*background-color: blue;*/
+}
+.info-container {
+    background-color: #76ADA8;
+    border-radius: 10px;
+    padding: 10px;
+}
+.info-container > button {
+    background-color:#E6A99F;
+    border: 1px solid #916c67;
+}
+.info-container > button:hover {
+    background-color:#916c67;
 }

@@ -105,8 +105,8 @@ document.addEventListener("DOMContentLoaded", function() {
     for (let socketEl of socketsEl) {
         socketEl.addEventListener("click", function() {
             let socket = socketArr.filter(socket => socket.positionx == this.getAttribute("id").split("-")[0]).filter(socket => socket.positiony == this.getAttribute("id").split("-")[1])[0]
-            socketArr.filter(socket => socket.root == true)[0].root = false
             if (socket.type != "empty") {return}
+            socketArr.filter(socket => socket.root == true)[0].root = false
             for (let socketAger of socketArr) {socketAger.age++}
             socket.type = queueArr[0].getAndProgressQueue()
             socket.age = 0;
@@ -116,7 +116,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (checkEnd()) {endGame()}
         });
     }
-    document.getElementById("endGame").addEventListener("click", endGame())
+    document.getElementById("endGame").addEventListener("click", endGame)
     document.getElementById("refresh").addEventListener("click", refreshSockets())
 });
 startGame = () => {
@@ -153,7 +153,6 @@ initialiseQueue = () => {for (let i = 0; i<3; i++) {queueArr[i] = new QueuePosit
  * refreshes sockets
  */
 refreshSockets = () => {
-    
     for (let socket of socketArr) {
         if (socket.root) {document.getElementById(`${socket.positionx}-${socket.positiony}`).setAttribute("class", `${socket.type} socket root`)} 
         else {document.getElementById(`${socket.positionx}-${socket.positiony}`).setAttribute("class", `${socket.type} socket`)}
@@ -173,6 +172,7 @@ canMerge = () => {
     console.log(socketArr.filter(socket => socket.type != "empty"))
     merge()
     refreshSockets()
+    pop.play()
 }
 /**
  * If a neighboring socket can merge it passes on the value
@@ -221,6 +221,7 @@ endGame = () => {
     //document.getElementById('score-card').setAttribute("id") = "unhidden-score-card"
 }
 
+let pop = new Audio('/workspace/js-game/assets/sounds/mixkit-message-pop-alert-2354.mp3');
 
 //copied from online
 function sleep(milliseconds) {
@@ -232,6 +233,6 @@ function sleep(milliseconds) {
   }
   
 
-ask richey to sort refresh feature to see 3 then combo 
-ask richey to sort position absolute
-ask richey to sort event listeners firing when assigned
+//ask richey to sort refresh feature to see 3 then combo 
+//ask richey to sort position absolute
+//sound promise issue
