@@ -70,7 +70,7 @@ body {
 }
 .root {
     position: relative;
-    /*background-color: blue;*/
+    background-color: blue;
 }
 .info-container {
     background-color: #76ADA8;
@@ -83,4 +83,10 @@ body {
 }
 .info-container > button:hover {
     background-color:#916c67;
+}
+/*~~~~~~~~~~~~~ snake ~~~~~~~~~~~~~~*/
+#gameCanvas {
+    width: 400px;
+    height: 400px;
+    border: 3px solid #98bb7c 
 }
