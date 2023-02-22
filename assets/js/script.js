@@ -95,10 +95,7 @@ class QueuePosition {
         return oldType
     }
 }
-var socketArr = [];
-var queueArr = [];
-var scoreTotal = 0;
-var scorePopup = 0;
+var socketArr = [];var queueArr = [];var scoreTotal = 0;var scorePopup = 0;
 document.addEventListener("DOMContentLoaded", function() {
     startGame(); 
     let socketsEl = document.getElementsByClassName("socket")
@@ -149,9 +146,6 @@ generateRandomSocketPosition = (n) => {
     return shuffled.slice(0, n);
 }
 initialiseQueue = () => {for (let i = 0; i<3; i++) {queueArr[i] = new QueuePosition(i)}}
-/**
- * refreshes sockets
- */
 refreshSockets = () => {
     for (let socket of socketArr) {
         if (socket.root) {document.getElementById(`${socket.positionx}-${socket.positiony}`).setAttribute("class", `${socket.type} socket root`)} 
@@ -163,20 +157,14 @@ refreshQueue = () => {
         document.getElementById(`${queue.number}`).setAttribute("class", `${queue.type}`)
     }
 }
-/**
- * can merge takes in sockets and checks if typeMatch > 1, if so it sets canMerge to true calls propogation and refreshes
- */
 canMerge = () => {
     console.log(socketArr.filter(socket => socket.type != "empty")) //sometimes merging emptys which doesnt affect game play but is cringe
     for (let socket of socketArr.filter(socket => socket.type != "empty")) {socket.canMergeMethod()}
-    console.log(socketArr.filter(socket => socket.type != "empty"))
-    merge()
-    refreshSockets()
+    console.log(socketArr.filter(socket => socket.type != "empty"));
+    merge();
+    refreshSockets();
     pop.play()
 }
-/**
- * If a neighboring socket can merge it passes on the value
- */
 mergeAttributePropogation = () => {
     for (let socket of socketArr.filter(socket => socket.canMerge == false)) {
         if (socket.leftMergeReadiness) {socket.canMerge = true; mergeAttributePropogation(socketArr)}
@@ -193,10 +181,6 @@ merge = () => { //need to get it to display the socket being placed, then merge 
     combine(toMerge)
     canMerge()
 }
-/**
- * takes in the array of sockets to merge and merges them onto the youngest socket
- * then resets type to empty and false canMerge
- */
 combine = ([root, ...rest]) => {
     console.log("combine called")
     console.log(root, rest)
@@ -220,17 +204,18 @@ endGame = () => {
     alert("you lose")
     //document.getElementById('score-card').setAttribute("id") = "unhidden-score-card"
 }
-
 let pop = new Audio('/workspace/js-game/assets/sounds/mixkit-message-pop-alert-2354.mp3');
+
+
+
 
 //copied from online
 function sleep(milliseconds) {
     const date = Date.now();
     let currentDate = null;
-    do {
-      currentDate = Date.now();
-    } while (currentDate - date < milliseconds);
-  }
+    do {currentDate = Date.now();} 
+    while (currentDate - date < milliseconds);
+}
   
 
 //ask richey to sort refresh feature to see 3 then combo 

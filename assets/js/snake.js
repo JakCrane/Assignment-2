@@ -10,16 +10,16 @@ class SnakeTile {
         this.age = 0;
     }
 }
-var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var tiles = []
+var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var tiles = []; var length;
 var direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
-var size = 10
+var size = 200
 document.addEventListener("DOMContentLoaded", function () {
     startGame();
     main();
 })
 startGame = () => {
-    instantiateTiles(); 
-    console.log(...tiles, "initialise function")
+    instantiateTiles();
+    //console.log(JSON.parse(JSON.stringify(tiles)), "initialise function")
     if (size % 2 == 0) {
         tiles[(size**2-size)/2].snake = true;
         tiles[(size**2-size)/2].head = true;}
@@ -27,7 +27,9 @@ startGame = () => {
         tiles[Math.floor((size**2)/2)].snake = true;
         tiles[Math.floor((size**2)/2)].head = true;}
     drawCanvas();
-    console.log(...tiles, "start function")
+    length = 1;
+    genFood();
+    //console.log(JSON.parse(JSON.stringify(tiles)), "start function")
 }
 instantiateTiles = () => {
     for (let i = 0; i < size**2; i++) {
@@ -47,22 +49,20 @@ drawCanvas = () => {
 }
 main = () => {
     setTimeout( function onTick() {
-        drawCanvas();
-        console.log("checkpoint")
+        growSnake();
+        if (tiles.filter(tiles => tiles.food).length == 0) {genFood()}
+        ageSnakeTile();
         moveSnakeHead();
         changeDirection();
-        ageSnakeTile();
-        let length = 1
         deleteSnakeTile(length);
-        console.log(tiles)
-        //main();
-    }, 1000);
+        drawCanvas();
+        main();
+    }, 100);
 };
 moveSnakeHead = () => {
     for (let tile of tiles.filter(tile => tile.head == true)) {
         let tileCurrent = tile
         tile.head = false
-        console.log(tile)
         if (direction == 0) {
             tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake = true;
             tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].head = true;
@@ -116,12 +116,22 @@ ageSnakeTile = () => {
 };
 deleteSnakeTile = (length) => {
     for (tile of tiles.filter(tile => tile.snake == true)) {
-        if (length == tile.age) {
+        if ((length) == tile.age) {
             tile.age = 0;
             tile.snake = false;
         }
     }
-} 
+}
+genFood = () => {
+    tiles[Math.floor(Math.random()*tiles.filter(tile => tile.snake == false).length)].food = true
+
+}
+growSnake = () => {
+    if (tiles.filter(tile => tile.head == true)[0].food == true) {
+        tiles.filter(tile => tile.head == true)[0].food = false;
+        ++length;
+    }
+}
 //  hasGameEnded() {
 //      define boundary conditions
 //  }
