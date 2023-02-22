@@ -11,25 +11,26 @@ class SnakeTile {
     }
 }
 var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var tiles = []; var length;
+var newDirection = 1;
 var direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
-var size = 200
+var size = 5;
 document.addEventListener("DOMContentLoaded", function () {
     startGame();
     main();
 })
 startGame = () => {
     instantiateTiles();
-    //console.log(JSON.parse(JSON.stringify(tiles)), "initialise function")
     if (size % 2 == 0) {
         tiles[(size**2-size)/2].snake = true;
         tiles[(size**2-size)/2].head = true;}
     else {
         tiles[Math.floor((size**2)/2)].snake = true;
         tiles[Math.floor((size**2)/2)].head = true;}
+    console.log(JSON.parse(JSON.stringify(tiles)), "initialise function")
+    genFood();
     drawCanvas();
     length = 1;
-    genFood();
-    //console.log(JSON.parse(JSON.stringify(tiles)), "start function")
+    console.log(JSON.parse(JSON.stringify(tiles)), "start function")
 }
 instantiateTiles = () => {
     for (let i = 0; i < size**2; i++) {
@@ -42,6 +43,7 @@ drawCanvas = () => {
     let relativeSize = Math.floor(400/size)
     for (let tile of tiles) {
         if (tile.snake) {ctx.fillStyle = "#98bb7c";} 
+        else if (tile.head) {ctx.fillStyle = "#E6A99F";} 
         else if (tile.food) {ctx.fillStyle = "#E6A99F";} 
         else {ctx.fillStyle = "#808080";}
         ctx.fillRect(relativeSize*0.1 + tile.x*relativeSize, relativeSize*0.1 + tile.y*relativeSize, tile.width*0.9, tile.height*0.9)
@@ -50,30 +52,38 @@ drawCanvas = () => {
 main = () => {
     setTimeout( function onTick() {
         growSnake();
-        if (tiles.filter(tiles => tiles.food).length == 0) {genFood()}
         ageSnakeTile();
+        direction = newDirection
         moveSnakeHead();
-        changeDirection();
+        newDirection = changeDirection();
         deleteSnakeTile(length);
         drawCanvas();
         main();
-    }, 100);
+    }, 3000/size);
 };
 moveSnakeHead = () => {
     for (let tile of tiles.filter(tile => tile.head == true)) {
         let tileCurrent = tile
         tile.head = false
         if (direction == 0) {
+            if (tileCurrent.y == 0) {endGame()}
+            if (tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake == true) {endGame()}
             tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake = true;
             tiles.filter(newTile => newTile.y == (tileCurrent.y - 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].head = true;
         }
         else if (direction == 1) {
+            if (tileCurrent.x == (size - 1)) {endGame()}
+            if (tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x + 1))[0].snake == true) {endGame()}
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x + 1))[0].snake = true;
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x + 1))[0].head = true;}
         else if (direction == 2) {
+            if (tileCurrent.y == (size - 1)) {endGame()}
+            if (tiles.filter(newTile => newTile.y == (tileCurrent.y + 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake == true) {endGame()}
             tiles.filter(newTile => newTile.y == (tileCurrent.y + 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].snake = true;
             tiles.filter(newTile => newTile.y == (tileCurrent.y + 1)).filter(newTile => newTile.x == (tileCurrent.x))[0].head = true;}
         else {
+            if (tileCurrent.x == 0) {endGame()}
+            if (tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x - 1))[0].snake == true) {endGame()}
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x - 1))[0].snake = true;
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x - 1))[0].head = true;}
     }
@@ -83,31 +93,40 @@ changeDirection = () => {  //0 = up, 1 = right, 2 = down, 3 = left
         console.log(typeof event.key)
         switch (event.key) {
             case "w":
-                direction = 0;
+                if (direction == 2) break;
+                newDirection = 0;
             break;
             case "ArrowUp":
-                direction = 0;
+                if (direction == 2) break;
+                newDirection = 0;
             break;
             case "d":
-                direction = 1;
+                if (direction == 3) break;
+                newDirection = 1;
             break;
             case "ArrowRight":
-                direction = 1;
+                if (direction == 3) break;
+                newDirection = 1;
             break;
             case "s":
-                direction = 2;
+                if (direction == 0) break;
+                newDirection = 2;
             break;
             case "ArrowDown":
-                direction = 2;
+                if (direction == 0) break;
+                newDirection = 2;
             break;
             case "a":
-                direction = 3;
+                if (direction == 1) break;
+                newDirection = 3;
             break;
             case "ArrowLeft":
-                direction = 3;
+                if (direction == 1) break;
+                newDirection = 3;
             break;
         }
     };
+    return newDirection
 };
 ageSnakeTile = () => {
     for (tile of tiles.filter(tile => tile.snake == true)) {
@@ -123,19 +142,21 @@ deleteSnakeTile = (length) => {
     }
 }
 genFood = () => {
-    tiles[Math.floor(Math.random()*tiles.filter(tile => tile.snake == false).length)].food = true
+    if (tiles.filter(tile => tile.snake == false).length == 0) {gameWin()}
+    tiles.filter(tile => tile.snake == false)[Math.floor(Math.random()*tiles.filter(tile => tile.snake == false).length)].food = true
 
 }
 growSnake = () => {
     if (tiles.filter(tile => tile.head == true)[0].food == true) {
         tiles.filter(tile => tile.head == true)[0].food = false;
         ++length;
+        genFood();
+        drawCanvas();
     }
 }
+endGame = () => {alert("you lose")}
+gameWin = () => {alert("you win!!!")}
 //  hasGameEnded() {
 //      define boundary conditions
 //  }
-//  randomFoodPosition() {}
-//  generateFood() {}
-//  growSnake() {}
 //  score() {}
