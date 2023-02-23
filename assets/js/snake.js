@@ -13,7 +13,7 @@ class SnakeTile {
 var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var tiles = []; var length;
 var newDirection = 1;
 var direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
-var size = 5;
+var size = 6;
 document.addEventListener("DOMContentLoaded", function () {startGame()})
 startGame = () => {
     instantiateTiles();
@@ -38,8 +38,8 @@ instantiateTiles = () => {
 drawCanvas = () => {  
     let relativeSize = Math.floor(400/size)
     for (let tile of tiles) {
-        if (tile.snake) {ctx.fillStyle = "#98bb7c";} 
-        else if (tile.head) {ctx.fillStyle = "#E6A99F";} 
+        if (tile.head) {ctx.fillStyle = "#718f58";} 
+        else if (tile.snake) {ctx.fillStyle = "#98bb7c";} 
         else if (tile.food) {ctx.fillStyle = "#E6A99F";} 
         else {ctx.fillStyle = "#808080";}
         ctx.fillRect(relativeSize*0.1 + tile.x*relativeSize, relativeSize*0.1 + tile.y*relativeSize, tile.width*0.9, tile.height*0.9)
@@ -52,6 +52,7 @@ main = () => {
         direction = newDirection
         moveSnakeHead();
         growSnake();
+        document.getElementById("score").innerText = `Score: ${length}`
         newDirection = changeDirection();
         deleteSnakeTile(length);
         drawCanvas();
@@ -154,6 +155,7 @@ growSnake = () => {
 }
 restartGame = () => {
     length = 1;
+    tiles.filter(tile => tile.food == true)[0].food = false
     for (let tile of tiles) {
         console.log(JSON.parse(JSON.stringify(tile)))
         tile.snake = false;

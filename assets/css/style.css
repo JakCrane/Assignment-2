@@ -10,7 +10,7 @@ body {
     background-color: rgb(255, 215, 130);
 }
 .grass, .bush, .tree, .hut, .house, .socket-row {
-    background-color: #98bb7c;
+    background-color: rgb(113, 143, 88);
 }
 /*~~~~~~~~~~~~~ merge civ ~~~~~~~~~~~~~~*/
 .socket {

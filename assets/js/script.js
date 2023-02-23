@@ -4,124 +4,99 @@ class Socket {
         this.positiony = y;
         this.type = "empty";
         this.age = Math.random();
-        this.typeMatch = 0;
-        this.canMerge = false
         this.root = false
+        this.readyToMerge = false
+        this.element = document.getElementById(`${x}-${y}`)
     }
     get leftType() {
         if (parseInt(this.positionx) == 0) {return null}
-        let col = socketArr.filter(socket => socket.positionx == (parseInt(this.positionx) - 1))
-        let row = col.filter(socket => socket.positiony == parseInt(this.positiony))
-        return row[0].type
+        return socketArr.filter(socket => socket.positionx == (parseInt(this.positionx) - 1)).filter(socket => socket.positiony == parseInt(this.positiony))[0].type;
     } 
     get rightType() {
         if (parseInt(this.positionx) == 5) {return null}
-        let col = socketArr.filter(socket => socket.positionx == (parseInt(this.positionx) + 1))
-        let row = col.filter(socket => socket.positiony == parseInt(this.positiony))
-        return row[0].type
+        return socketArr.filter(socket => socket.positionx == (parseInt(this.positionx) + 1)).filter(socket => socket.positiony == parseInt(this.positiony))[0].type;
     } 
     get aboveType() {
         if (parseInt(this.positiony) == 0) {return null}
-        let col = socketArr.filter(socket => socket.positionx == parseInt(this.positionx))
-        let row = col.filter(socket => socket.positiony == (parseInt(this.positiony) - 1))
-        return row[0].type
+        return socketArr.filter(socket => socket.positionx == parseInt(this.positionx)).filter(socket => socket.positiony == (parseInt(this.positiony) - 1))[0].type;
     } 
     get belowType() {
         if (parseInt(this.positiony) == 5) {return null}
-        let col = socketArr.filter(socket => socket.positionx == parseInt(this.positionx))
-        let row = col.filter(socket => socket.positiony == (parseInt(this.positiony) + 1))
-        return row[0].type
+        return socketArr.filter(socket => socket.positionx == parseInt(this.positionx)).filter(socket => socket.positiony == (parseInt(this.positiony) + 1))[0].type;
     } 
     get leftMergeReadiness() {
         if (parseInt(this.positionx) == 0) {return null}
-        let col = socketArr.filter(socket => socket.positionx == (parseInt(this.positionx) - 1))
-        let row = col.filter(socket => socket.positiony == parseInt(this.positiony))
-        if (row[0].type == this.type) {return row[0].canMerge} 
-        else {return false}
+        return socketArr.filter(socket => socket.positionx == (parseInt(this.positionx) - 1)).filter(socket => socket.positiony == parseInt(this.positiony))[0].readyToMerge = true;
     } 
     get rightMergeReadiness() {
         if (parseInt(this.positionx) == 5) {return null}
-        let col = socketArr.filter(socket => socket.positionx == (parseInt(this.positionx) + 1))
-        let row = col.filter(socket => socket.positiony == parseInt(this.positiony))
-        if (row[0].type == this.type) {return row[0].canMerge} 
-        else {return false}
+        return socketArr.filter(socket => socket.positionx == (parseInt(this.positionx) + 1)).filter(socket => socket.positiony == parseInt(this.positiony))[0].readyToMerge = true;
     } 
     get aboveMergeReadiness() {
         if (parseInt(this.positiony) == 0) {return null}
-        let col = socketArr.filter(socket => socket.positionx == parseInt(this.positionx))
-        let row = col.filter(socket => socket.positiony == (parseInt(this.positiony) - 1))
-        if (row[0].type == this.type) {return row[0].canMerge} 
-        else {return false}
+        return socketArr.filter(socket => socket.positionx == parseInt(this.positionx)).filter(socket => socket.positiony == (parseInt(this.positiony) - 1))[0].readyToMerge = true;
     } 
     get belowMergeReadiness() {
         if (parseInt(this.positiony) == 5) {return null}
-        let col = socketArr.filter(socket => socket.positionx == parseInt(this.positionx))
-        let row = col.filter(socket => socket.positiony == (parseInt(this.positiony) + 1))
-        if (row[0].type == this.type) {return row[0].canMerge} 
-        else {return false}
+        return socketArr.filter(socket => socket.positionx == parseInt(this.positionx)).filter(socket => socket.positiony == (parseInt(this.positiony) + 1))[0].readyToMerge = true;
     } 
-    canMergeMethod() {
-        this.typeMatch = 0
-        if (this.type == this.leftType) {this.typeMatch++}
-        if (this.type == this.rightType) {this.typeMatch++}
-        if (this.type == this.aboveType) {this.typeMatch++}
-        if (this.type == this.belowType) {this.typeMatch++}
-        if (this.typeMatch >= 2) {
-            this.canMerge = true; 
-            mergeAttributePropogation(); 
-            merge();
-        } 
+    
+    get typeMatch() {
+        if (this.type == "empty") return 0
+        let typeMatch = 0;
+        if (this.type == this.leftType) {typeMatch++}
+        if (this.type == this.rightType) {typeMatch++}
+        if (this.type == this.aboveType) {typeMatch++}
+        if (this.type == this.belowType) {typeMatch++}
+        console.log("cringe 2")
+        return typeMatch
+    }
+    updateSocket() {
+        socketArr.filter(socket => socket.root == true)[0].root = false; 
+        this.root = true;
+        this.age = 0;
+        this.type = getAndProgressQueue()
+        socketArr.map(socket => ++socket.age)
+    }
+    canMerge() {
+        if (this.type == "empty") return false
+        //if (this.typeMatch >= 2) {this.readyToMerge = true; return true} 
+        //if (this.type == this.leftType) {if (this.leftMergeReadiness) {this.readyToMerge = true}; return true}
+        //if (this.type == this.rightType) {if (this.rightMergeReadiness) {this.readyToMerge = true}; return true}
+        //if (this.type == this.aboveType) {if (this.aboveMergeReadiness) {this.readyToMerge = true}; return true}
+        //if (this.type == this.belowType) {if (this.belowMergeReadiness) {this.readyToMerge = true}; return true}
+        return false    
+        
     }
 }
 class QueuePosition {
     constructor(i) {
-        this.type = this.getRandomQueueType();
+        this.type = getRandomQueueType();
         this.number = `position${i}`;
-    }
-    getRandomQueueType() {
-        let a = Math.random()
-        if (a >= 0.95) {
-            return "tree"
-        } else if (a >= 0.8) {
-            return "bush"
-        } else {
-            return "grass"
-        }
-    }
-    getAndProgressQueue() {
-        let oldType = queueArr[0].type
-        for (let i = 0; i<2; i++) {queueArr[i].type = queueArr[i + 1].type}
-        queueArr[2].type = this.getRandomQueueType()
-        return oldType
-    }
+    }    
 }
 var socketArr = [];var queueArr = [];var scoreTotal = 0;var scorePopup = 0;
 document.addEventListener("DOMContentLoaded", function() {
     startGame(); 
-    let socketsEl = document.getElementsByClassName("socket")
-    for (let socketEl of socketsEl) {
+    for (let socketEl of document.getElementsByClassName("socket")) {
         socketEl.addEventListener("click", function() {
-            let socket = socketArr.filter(socket => socket.positionx == this.getAttribute("id").split("-")[0]).filter(socket => socket.positiony == this.getAttribute("id").split("-")[1])[0]
-            if (socket.type != "empty") {return}
-            socketArr.filter(socket => socket.root == true)[0].root = false
-            for (let socketAger of socketArr) {socketAger.age++}
-            socket.type = queueArr[0].getAndProgressQueue()
-            socket.age = 0;
-            socket.root = true;
-            refreshQueue()
-            canMerge()
-            if (checkEnd()) {endGame()}
+            let socket = socketArr.filter(socket => socket.element == socketEl)[0] //matching the socket in the arr to the element
+            if (socket.type != "empty") {return} //checking its empty (cannot interact with full sockets)
+            socket.updateSocket()
+            refreshSockets()
+            while (merge()) {setTimeout( function onTick() {refreshSockets()}, 100)}
+            
+            if (checkEnd()) endGame()
         });
     }
     document.getElementById("endGame").addEventListener("click", endGame)
-    document.getElementById("refresh").addEventListener("click", refreshSockets())
 });
 startGame = () => {
     initialiseSockets();
-    socketArr[0].root = true
+    socketArr[0].root = true;
     initialiseQueue();
     refreshQueue();
-    canMerge();
+    merge();
     refreshSockets();
     scoreTotal = 0;
     document.getElementById("score").innerText = `Score: ${scoreTotal}`;
@@ -157,47 +132,31 @@ refreshQueue = () => {
         document.getElementById(`${queue.number}`).setAttribute("class", `${queue.type}`)
     }
 }
-canMerge = () => {
-    console.log(socketArr.filter(socket => socket.type != "empty")) //sometimes merging emptys which doesnt affect game play but is cringe
-    for (let socket of socketArr.filter(socket => socket.type != "empty")) {socket.canMergeMethod()}
-    console.log(socketArr.filter(socket => socket.type != "empty"));
-    merge();
-    refreshSockets();
-    pop.play()
-}
-mergeAttributePropogation = () => {
-    for (let socket of socketArr.filter(socket => socket.canMerge == false)) {
-        if (socket.leftMergeReadiness) {socket.canMerge = true; mergeAttributePropogation(socketArr)}
-        if (socket.rightMergeReadiness) {socket.canMerge = true; mergeAttributePropogation(socketArr)}
-        if (socket.aboveMergeReadiness) {socket.canMerge = true; mergeAttributePropogation(socketArr)}
-        if (socket.belowMergeReadiness) {socket.canMerge = true; mergeAttributePropogation(socketArr)}
-    }
-}
+
 merge = () => { //need to get it to display the socket being placed, then merge then display then repeat if needed
+    let propagate = true
+    while(propagate = true) {
+        propagate = false
+        
+        for (let socket of socketArr.filter(socket => socket.type != "empty")) {if (socket.canMerge()) {propagate = true}}
+        console.log(propagate)
+    } 
     let toMerge = []
-    for (let socket of socketArr.filter(socket => socket.canMerge == true)) {toMerge.push(socket)}
-    if (toMerge.length == 0) {console.log("no merges");return}
+    for (let socket of socketArr.filter(socket => socket.readyToMerge = true == true)) {toMerge.push(socket)}
+    if (toMerge.length == 0) {return false}
+    console.log(toMerge)
     toMerge.sort((a,b) => a.age < b.age ? -1:1)
-    combine(toMerge)
-    canMerge()
-}
-combine = ([root, ...rest]) => {
-    console.log("combine called")
-    console.log(root, rest)
-    switch (root.type) {
-        case "grass": root.type = "bush"; scorePopup = 100; break;
-        case "bush": root.type = "tree"; scorePopup = 400; break;
-        case "tree": root.type = "hut"; scorePopup = 1600; break;
-        case "hut": root.type = "house"; scorePopup = 6400; break;
+    switch (toMerge[0].type) {
+        case "grass": toMerge[0].type = "bush"; scorePopup = 100; break;
+        case "bush": toMerge[0].type = "tree"; scorePopup = 400; break;
+        case "tree": toMerge[0].type = "hut"; scorePopup = 1600; break;
+        case "hut": toMerge[0].type = "house"; scorePopup = 6400; break;
     }
     scoreTotal += scorePopup
     document.getElementById("score-popup").innerText = `${scorePopup}`
     document.getElementById("score").innerText = `Score: ${scoreTotal}`
-    root.canMerge = false
-    for (let socket of rest) {
-        socket.type = "empty"
-        socket.canMerge = false
-    }
+    for (let socket of toMerge.filter(socket => socket == toMerge[0])) socket.type = "empty";
+    return true
 }
 checkEnd = () => {for (let socket of socketArr.filter(socket => socket.value == "empty")) {return true}}
 endGame = () => {
@@ -205,10 +164,27 @@ endGame = () => {
     //document.getElementById('score-card').setAttribute("id") = "unhidden-score-card"
 }
 let pop = new Audio('/workspace/js-game/assets/sounds/mixkit-message-pop-alert-2354.mp3');
+/**
+ * Sets old root to false, new root to true, socket age to 0
+ */
 
-
-
-
+getAndProgressQueue = () => {
+    let oldType = queueArr[0].type;
+    for (let i = 0; i<2; i++) {queueArr[i].type = queueArr[i + 1].type};
+    queueArr[2].type = getRandomQueueType();
+    refreshQueue();
+    return oldType
+}
+getRandomQueueType = () => {
+    let a = Math.random()
+    if (a >= 0.95) {
+        return "tree"
+    } else if (a >= 0.8) {
+        return "bush"
+    } else {
+        return "grass"
+    }
+}
 //copied from online
 function sleep(milliseconds) {
     const date = Date.now();
