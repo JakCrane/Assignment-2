@@ -12,11 +12,11 @@ class SnakeTile {
 }
 
 document.getElementById("start-button").addEventListener("click", startGame)
-
+var myModal = new bootstrap.Modal(document.getElementById('myModal'))
 var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var tiles = []; var length; var end;
 var newDirection = 1;
 var direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
-var size = 10;
+var size = 20;
 
 
 function startGame() {
@@ -162,5 +162,10 @@ function growSnake() {
         return true
     } else return false
 }
-endGame = () => {$('#exampleModal').modal("show"); alert(`you lose Your final length was: ${length}`); end = true}
+endGame = () => {
+    document.getElementById("reset-button").addEventListener("click", startGame)
+    document.getElementById("modal-text").innerText = `Your final length was: ${length}`
+    myModal.show(); 
+    end = true;
+}
 gameWin = () => {alert("you win!!!"); end = true}
