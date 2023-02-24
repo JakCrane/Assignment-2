@@ -23,9 +23,6 @@
               <li class="nav-item">
                 <a class="nav-link" href="./snake.html">Snake</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Fish</a>
-            </li>
             </ul>
           </div>
         </div>
@@ -33,16 +30,15 @@
     
     <main class="container">
         <div class="py-2"><h1 class="text-center py-2">Merge Civilisation</h1></div>
-        
         <div class="row">
-            <div class="col-2 position">
+            <div class="col-6 col-lg-2 order-2 order-lg-1">
                 <div class="container info-container">
                     <h2 id="score">Score:</h2>
                     <div id="score-popup"></div>
                     <button class="btn" id="endGame">End Game :(</button>
                 </div>
             </div>
-            <div class="col-lg-8">
+            <div class="col-lg-8 order-1 order-lg-2">
                 <div class="row gx-1 gy-1 socket-row">
                     <div class="col-2">
                         <div class="socket" id="0-0"></div>
@@ -154,11 +150,10 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2">
-                    <div class="" id="position0"></div>
-                    <div class="" id="position1"></div>
-                    <div class="" id="position2"></div>
-                </div>
+            <div class="d-none d-lg-block col-lg-2 order-3">
+                <div class="" id="position0"></div>
+                <div class="" id="position1"></div>
+                <div class="" id="position2"></div>
             </div>
         </div>
         <div class="modal" tabindex="-1" role="dialog">

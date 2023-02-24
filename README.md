@@ -10,3 +10,6 @@ add explanation of how to play
 77700 -berk-the-turk
 
 leaderboard
+
+
+record own noises for merging

@@ -72,6 +72,9 @@ class QueuePosition {
     }    
 }
 var socketArr = [];var queueArr = [];var scoreTotal = 0;var scorePopup = 0;
+var soundNum = 0;
+var place = new Audio('assets/sounds/mixkit-message-pop-alert-2354.mp3');
+    
 document.addEventListener("DOMContentLoaded", function() {
     startGame(); 
     for (let socketEl of document.getElementsByClassName("socket")) {
@@ -79,8 +82,9 @@ document.addEventListener("DOMContentLoaded", function() {
             let socket = socketArr.filter(socket => socket.element == socketEl)[0] //matching the socket in the arr to the element
             if (socket.type != "empty") {return} //checking its empty (cannot interact with full sockets)
             socket.updateSocket();
-            merge();
+            soundNum = 0;
             refreshSockets();
+            merge();
             if (checkEnd()) endGame();
         });
     }
@@ -121,6 +125,11 @@ refreshSockets = () => {
         if (socket.root) {document.getElementById(`${socket.x}-${socket.y}`).setAttribute("class", `${socket.type} socket root`)} 
         else {document.getElementById(`${socket.x}-${socket.y}`).setAttribute("class", `${socket.type} socket`)}
     }
+    console.log(soundNum)
+    if (soundNum == 0) {place.play()}
+    else if (soundNum == 1) {one.play()}
+    
+    soundNum++
 }
 refreshQueue = () => {
     for (let queue of queueArr) {
@@ -134,8 +143,8 @@ propagate = () => {
 }
 merge = () => { //need to get it to display the socket being placed, then merge then display then repeat if needed
     setTimeout( function onTick() {
-        refreshSockets();
         propagate();
+        //console.log(socketArr.filter(socket => socket.readyToMerge == true))
         let toMerge = socketArr.filter(socket => socket.readyToMerge == true)
         if (toMerge.length == 0) {return false}
         try {socketArr.filter(socket => socket.root == true)[0].root = false;}
@@ -153,8 +162,9 @@ merge = () => { //need to get it to display the socket being placed, then merge 
         document.getElementById("score-popup").innerText = `${scorePopup}`
         document.getElementById("score").innerText = `Score: ${scoreTotal}`
         for (let socket of toMerge.filter(socket => socket.root == false)) socket.type = "empty";
+        refreshSockets();
         merge();
-    }, 100)
+    }, 250)
     
 }
 checkEnd = () => {for (let socket of socketArr.filter(socket => socket.value == "empty")) {return true}}
@@ -162,7 +172,7 @@ endGame = () => {
     alert("you lose")
     //document.getElementById('score-card').setAttribute("id") = "unhidden-score-card"
 }
-let pop = new Audio('/mixkit-message-pop-alert-2354.mp3');
+
 getAndProgressQueue = () => {
     let oldType = queueArr[0].type;
     for (let i = 0; i<2; i++) {queueArr[i].type = queueArr[i + 1].type};
