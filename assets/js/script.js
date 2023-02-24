@@ -7,6 +7,7 @@ class Socket {
         this.readyToMerge = false
         this.age = Math.random();
         this.element = document.getElementById(`${x}-${y}`)
+        this.special = false
     }
     get leftType() {
         if (parseInt(this.x) == 0) {return null}
@@ -85,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function() {
             soundNum = 0;
             refreshSockets();
             merge();
-            if (checkEnd()) endGame();
+            if (!checkEnd()) {refreshSockets(); endGame()} ;
         });
     }
     document.getElementById("endGame").addEventListener("click", endGame)
@@ -121,13 +122,15 @@ generateRandomSocketPosition = (n) => {
 initialiseQueue = () => {for (let i = 0; i<3; i++) {queueArr[i] = new QueuePosition(i)}}
 refreshSockets = () => {
     for (let socket of socketArr) {
-        //document.getElementById(`${socket.x}-${socket.y}`).innerText = `${socket.type} ${socket.readyToMerge} ${Math.floor(socket.age)}`
         if (socket.root) {document.getElementById(`${socket.x}-${socket.y}`).setAttribute("class", `${socket.type} socket root`)} 
         else {document.getElementById(`${socket.x}-${socket.y}`).setAttribute("class", `${socket.type} socket`)}
     }
     console.log(soundNum)
     if (soundNum == 0) {place.play()}
-    else if (soundNum == 1) {one.play()}
+    else if (soundNum == 1) {place.play()}
+    else if (soundNum == 2) {place.play()}
+    else if (soundNum == 3) {place.play()}
+    else {place.play()}
     
     soundNum++
 }
@@ -137,14 +140,15 @@ refreshQueue = () => {
     }
 }
 propagate = () => {
+    console.log("p")
     for (let socket of socketArr.filter(socket => socket.type != "empty" && socket.readyToMerge == false)) {
-        if (socket.canMerge() == true) {propagate()}
+        if (socket.canMerge() == true) {; propagate(); break}
     }
 }
 merge = () => { //need to get it to display the socket being placed, then merge then display then repeat if needed
+    console.log("merge called")
     setTimeout( function onTick() {
         propagate();
-        //console.log(socketArr.filter(socket => socket.readyToMerge == true))
         let toMerge = socketArr.filter(socket => socket.readyToMerge == true)
         if (toMerge.length == 0) {return false}
         try {socketArr.filter(socket => socket.root == true)[0].root = false;}
@@ -152,6 +156,9 @@ merge = () => { //need to get it to display the socket being placed, then merge 
         for (let socket of toMerge) socket.readyToMerge = false;
         toMerge.sort((a,b) => a.age < b.age ? -1:1)
         toMerge[0].root = true
+        if (toMerge.length > 3) {
+            toMerge[0].special = true
+        }
         switch (toMerge[0].type) {
             case "grass": toMerge[0].type = "bush"; scorePopup = 100; break;
             case "bush": toMerge[0].type = "tree"; scorePopup = 400; break;
@@ -161,18 +168,27 @@ merge = () => { //need to get it to display the socket being placed, then merge 
         scoreTotal += scorePopup
         document.getElementById("score-popup").innerText = `${scorePopup}`
         document.getElementById("score").innerText = `Score: ${scoreTotal}`
-        for (let socket of toMerge.filter(socket => socket.root == false)) socket.type = "empty";
+        for (let socket of toMerge.filter(socket => socket.root == false)) {
+            socket.type = "empty"
+            socket.special
+        };
         refreshSockets();
         merge();
     }, 250)
     
 }
-checkEnd = () => {for (let socket of socketArr.filter(socket => socket.value == "empty")) {return true}}
-endGame = () => {
-    alert("you lose")
-    //document.getElementById('score-card').setAttribute("id") = "unhidden-score-card"
+checkEnd = () => {
+    for (let socket of socketArr.filter(socket => socket.type == "empty")) {return true}
+    return false
 }
-
+endGame = () => {
+    alert(`Unlucky. Your final score is ${scoreTotal} press space to reset`)
+    //document.getElementById('score-card').setAttribute("id") = "unhidden-score-card"
+    document.onkeydown = function(event) {if (event.type == "w") resetGame()}
+}
+resetGame = () => {
+    console.log("reset")
+}
 getAndProgressQueue = () => {
     let oldType = queueArr[0].type;
     for (let i = 0; i<2; i++) {queueArr[i].type = queueArr[i + 1].type};
@@ -193,4 +209,3 @@ getRandomQueueType = () => {
   
 
 //ask richey to sort position absolute
-//sound promise issue

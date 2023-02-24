@@ -84,16 +84,18 @@ body {
     background-color:#916c67;
 }
 /*~~~~~~~~~~~~~ snake ~~~~~~~~~~~~~~*/
+#snake-panel {
+    position:relative;
+}
 #gameCanvas {
-    width: 400px;
-    height: 400px;
+    position: absolute;
+    width: 60vh;
+    height: 60vh;
     border: 3px solid #98bb7c 
 }
 #start-button {
-    top:0;
-    height:200px;
-    width:500px;
-}
-#snake-panel {
-    position:relative;
+    position:absolute;
+    width: 60vh;
+    height: 60vh;
+    background-color: #98bb7c
 }

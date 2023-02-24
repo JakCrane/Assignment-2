@@ -16,14 +16,14 @@ document.getElementById("start-button").addEventListener("click", startGame)
 var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var tiles = []; var length; var end;
 var newDirection = 1;
 var direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
-var size = 6;
+var size = 10;
 
 
 function startGame() {
+    document.getElementById("start-button").setAttribute("class","btn btn-info d-none")
     tiles = [];
     newDirection = 1;
     direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
-    size = 6;
     length = 1;
     end = false;
     instantiateTiles();
@@ -98,7 +98,6 @@ function moveSnakeHead() {
 };
 function changeDirection() {  //0 = up, 1 = right, 2 = down, 3 = left
     document.onkeydown = function(event) {
-        console.log(event.key)
         switch (event.key) {
             case "w":
                 if (direction == 2) break;
@@ -163,5 +162,5 @@ function growSnake() {
         return true
     } else return false
 }
-endGame = () => {alert(`you lose Your final length was: ${length}`); end = true}
+endGame = () => {$('#exampleModal').modal("show"); alert(`you lose Your final length was: ${length}`); end = true}
 gameWin = () => {alert("you win!!!"); end = true}
