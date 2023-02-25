@@ -57,7 +57,8 @@ body {
 .treespecial {background-image: url(/assets/images/specialtree.png);}
 .hut {background-image: url(/assets/images/hut.png);}
 .hutspecial {background-image: url(/assets/images/hutspecial.png);}
-.house {background-image: url(/assets/images/image-removebg-preview\ \(3\).png);}
+.house {background-image: url(/assets/images/house.png);}
+.housespecial {background-image: url(/assets/images/housespecial.png);}
 
 
 #score-popup {
