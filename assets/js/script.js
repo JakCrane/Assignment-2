@@ -95,10 +95,9 @@ startGame = () => {
     initialiseSockets();
     initialiseQueue();
     refreshQueue();
-    merge();
+    if(!merge()) {refreshSockets()};
     try {socketArr.filter(socket => socket.special == true)[0] = false}
     catch {console.log("no initial specials")}
-    refreshSockets();
     scoreTotal = 0;
     document.getElementById("score").innerText = `Score: ${scoreTotal}`;
 }
@@ -145,7 +144,7 @@ refreshQueue = () => {
 propagate = () => {
     console.log("p")
     for (let socket of socketArr.filter(socket => socket.type != "empty" && socket.readyToMerge == false)) {
-        if (socket.canMerge() == true) {; propagate(); break}
+        if (socket.canMerge() == true) {propagate(); break}
     }
 }
 merge = () => { //need to get it to display the socket being placed, then merge then display then repeat if needed
