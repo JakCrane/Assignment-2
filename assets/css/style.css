@@ -10,7 +10,7 @@ body {
     background-color: rgb(255, 215, 130);
 }
 .grass, .bush, .tree, .hut, .house, .socket-row {
-    background-color: #98bb7c;
+    background-color: rgb(113, 143, 88);
 }
 /*~~~~~~~~~~~~~ merge civ ~~~~~~~~~~~~~~*/
 .socket {
@@ -50,27 +50,22 @@ body {
     width:6vw;
     max-width: 60px;
 }
-.grass {background-image: url(/assets/images/pixil-frame-0\ \(5\).png);}
-.bush {background-image: url(/assets/images/image-removebg-preview.png);}
-.tree {background-image: url(/assets/images/image-removebg-preview\ \(1\).png);}
+.grass {background-image: url(/assets/images/grass.png);}
+.bush {background-image: url(/assets/images/bush.png);}
+.bushspecial {background-image: url(/assets/images/specialbush.png);}
+.tree {background-image: url(/assets/images/tree.png);}
+.treespecial {background-image: url(/assets/images/specialtree.png);}
 .hut {background-image: url(/assets/images/image-removebg-preview\ \(2\).png);}
 .house {background-image: url(/assets/images/image-removebg-preview\ \(3\).png);}
 
 
-#hidden-score-card {
-    display:none;
-}
-#unhidden-score-card {
-    display:block;
-}
 #score-popup {
     position: absolute;
     left: 0;
     top: 0;
 }
-.root {
-    position: relative;
-    background-color: blue;
+.special {
+    background-color: #dacf35;
 }
 .info-container {
     background-color: #76ADA8;
@@ -85,8 +80,23 @@ body {
     background-color:#916c67;
 }
 /*~~~~~~~~~~~~~ snake ~~~~~~~~~~~~~~*/
+#snake-panel {
+    position:relative;
+    height: 60vh;
+    margin-bottom: 5px;
+}
 #gameCanvas {
-    width: 400px;
-    height: 400px;
-    border: 3px solid #98bb7c 
+    position: absolute;
+    width: 60vh;
+    height: 60vh;
+}
+#start-button {
+    position:absolute;
+    width: 60vh;
+    height: 60vh;
+    background-color: #98bb7c
+}
+.list-group-item {
+    background-color: rgba(0,0,0,0);
+    border: rgba(0,0,0,0) 0px solid;
 }
