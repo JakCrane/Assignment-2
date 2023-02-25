@@ -159,14 +159,16 @@ merge = () => { //need to get it to display the socket being placed, then merge 
         for (let socket of toMerge) socket.readyToMerge = false;
         toMerge.sort((a,b) => a.age < b.age ? -1:1)
         toMerge[0].root = true
-        if (toMerge.length > 3) {
-            toMerge[0].special = true
-        }
+        
         switch (toMerge[0].type) {
             case "grass": toMerge[0].type = "bush"; scorePopup = 100; break;
             case "bush": toMerge[0].type = "tree"; scorePopup = 400; break;
             case "tree": toMerge[0].type = "hut"; scorePopup = 1600; break;
             case "hut": toMerge[0].type = "house"; scorePopup = 6400; break;
+        }
+        if (toMerge.length > 3) {
+            toMerge[0].special = true;
+            scorePopup *= 1.5
         }
         scoreTotal += scorePopup
         document.getElementById("score").innerText = `Score: ${scoreTotal}`

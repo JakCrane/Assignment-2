@@ -50,9 +50,11 @@ body {
     width:6vw;
     max-width: 60px;
 }
-.grass {background-image: url(/assets/images/pixil-frame-0\ \(5\).png);}
-.bush {background-image: url(/assets/images/image-removebg-preview.png);}
-.tree {background-image: url(/assets/images/image-removebg-preview\ \(1\).png);}
+.grass {background-image: url(/assets/images/grass.png);}
+.bush {background-image: url(/assets/images/bush.png);}
+.bushspecial {background-image: url(/assets/images/specialbush.png);}
+.tree {background-image: url(/assets/images/tree.png);}
+.treespecial {background-image: url(/assets/images/specialtree.png);}
 .hut {background-image: url(/assets/images/image-removebg-preview\ \(2\).png);}
 .house {background-image: url(/assets/images/image-removebg-preview\ \(3\).png);}
 
