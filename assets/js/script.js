@@ -89,13 +89,15 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!checkEnd()) {refreshSockets(); endGame()} ;
         });
     }
-    document.getElementById("endGame").addEventListener("click", endGame)
+    document.getElementById("reset-button").addEventListener("click", endGame)
 });
 startGame = () => {
     initialiseSockets();
     initialiseQueue();
     refreshQueue();
     merge();
+    try {socketArr.filter(socket => socket.special == true)[0] = false}
+    catch {console.log("no initial specials")}
     refreshSockets();
     scoreTotal = 0;
     document.getElementById("score").innerText = `Score: ${scoreTotal}`;
@@ -122,11 +124,12 @@ generateRandomSocketPosition = (n) => {
 initialiseQueue = () => {for (let i = 0; i<3; i++) {queueArr[i] = new QueuePosition(i)}}
 refreshSockets = () => {
     for (let socket of socketArr) {
-        if (socket.root) {document.getElementById(`${socket.x}-${socket.y}`).setAttribute("class", `${socket.type} socket root`)} 
+        if (socket.special) {document.getElementById(`${socket.x}-${socket.y}`).setAttribute("class", `socket ${socket.type}special`)} 
         else {document.getElementById(`${socket.x}-${socket.y}`).setAttribute("class", `${socket.type} socket`)}
     }
     console.log(soundNum)
-    if (soundNum == 0) {place.play()}
+    if (soundNum == -2 || -1) {return}
+    else if (soundNum == 0) {place.play()}
     else if (soundNum == 1) {place.play()}
     else if (soundNum == 2) {place.play()}
     else if (soundNum == 3) {place.play()}
@@ -152,7 +155,7 @@ merge = () => { //need to get it to display the socket being placed, then merge 
         let toMerge = socketArr.filter(socket => socket.readyToMerge == true)
         if (toMerge.length == 0) {return false}
         try {socketArr.filter(socket => socket.root == true)[0].root = false;}
-        catch {console.log("no initial merges")}
+        catch {console.log("initial merges")}
         for (let socket of toMerge) socket.readyToMerge = false;
         toMerge.sort((a,b) => a.age < b.age ? -1:1)
         toMerge[0].root = true
@@ -166,12 +169,12 @@ merge = () => { //need to get it to display the socket being placed, then merge 
             case "hut": toMerge[0].type = "house"; scorePopup = 6400; break;
         }
         scoreTotal += scorePopup
-        document.getElementById("score-popup").innerText = `${scorePopup}`
         document.getElementById("score").innerText = `Score: ${scoreTotal}`
         for (let socket of toMerge.filter(socket => socket.root == false)) {
             socket.type = "empty"
-            socket.special
+            socket.special = false
         };
+        console.log(JSON.parse(JSON.stringify(toMerge)))
         refreshSockets();
         merge();
     }, 250)
@@ -182,9 +185,11 @@ checkEnd = () => {
     return false
 }
 endGame = () => {
-    alert(`Unlucky. Your final score is ${scoreTotal} press space to reset`)
-    //document.getElementById('score-card').setAttribute("id") = "unhidden-score-card"
-    document.onkeydown = function(event) {if (event.type == "w") resetGame()}
+    document.getElementById("reset-button").addEventListener("click", startGame)
+    document.getElementById("reset-button").innerText = "Try Again"
+    document.getElementById("modal-text").innerText = `Your final length was: ${length}`
+    myModal.show(); 
+    end = true;
 }
 resetGame = () => {
     console.log("reset")

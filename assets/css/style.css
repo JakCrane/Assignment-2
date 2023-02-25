@@ -57,19 +57,13 @@ body {
 .house {background-image: url(/assets/images/image-removebg-preview\ \(3\).png);}
 
 
-#hidden-score-card {
-    display:none;
-}
-#unhidden-score-card {
-    display:block;
-}
 #score-popup {
     position: absolute;
     left: 0;
     top: 0;
 }
-.root {
-    position: relative;
+.special {
+    background-color: #dacf35;
 }
 .info-container {
     background-color: #76ADA8;
@@ -86,16 +80,21 @@ body {
 /*~~~~~~~~~~~~~ snake ~~~~~~~~~~~~~~*/
 #snake-panel {
     position:relative;
+    height: 60vh;
+    margin-bottom: 5px;
 }
 #gameCanvas {
     position: absolute;
     width: 60vh;
     height: 60vh;
-    border: 3px solid #98bb7c 
 }
 #start-button {
     position:absolute;
     width: 60vh;
     height: 60vh;
     background-color: #98bb7c
+}
+.list-group-item {
+    background-color: rgba(0,0,0,0);
+    border: rgba(0,0,0,0) 0px solid;
 }

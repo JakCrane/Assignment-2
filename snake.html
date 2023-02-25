@@ -27,19 +27,26 @@
           </div>
         </div>
     </nav>
-    <main class="container">
+    <main>
         <div class="py-2"><h1 class="text-center py-2">Snake</h1></div>
-        <div class="row">
-            <div class="col-3 ">
+        <div class="row gy-2">
+            <div class="col-4 order-2 order-1-lg">
                 <div class="container info-container">
-                    <h2 class="text-center" id="score">Score: 0</h2>
+                    <h2 class="text-center" id="score">Length: 1</h2>
                 </div>
             </div>
-            <div class="col-lg-9" id="snake-panel">
+            <div class="col-6 offset-3 offset-lg-0 order-1 order-2-lg" id="snake-panel">
                 <canvas id="gameCanvas" height="400" width="400"></canvas>
                 <button id="start-button" class="btn">Start</button>
-            </div>
-            
+            </div> 
+            <div class="col-8 col-lg-3 order-3">
+              <ul class="flex-lg-column flex-row list-group">
+                <li class="list-group-item"><button id="size4" class="btn btn-primary">Easy</button></li>
+                <li class="list-group-item"><button id="size6" class="btn btn-secondary">Medium</button></li>
+                <li class="list-group-item"><button id="size10" class="btn btn-secondary">Hard</button></li>
+                <li class="list-group-item"><button id="size20" class="btn btn-secondary">Very Hard</button></li>
+              </ul>
+          </div>
         </div>
     </main>
     <div class="modal" tabindex="-1" id="myModal">
@@ -53,7 +60,8 @@
             <p id="modal-text">Modal body text goes here.</p>
           </div>
           <div class="modal-footer">
-            <button id="reset-button" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Restart</button>
+            <button id="reset-button" type="button" class="btn btn-primary" data-bs-dismiss="modal">Restart</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Change Difficulty</button>
           </div>
         </div>
       </div>

@@ -10,13 +10,45 @@ class SnakeTile {
         this.age = 0;
     }
 }
-
-document.getElementById("start-button").addEventListener("click", startGame)
+var size = 4;
+var buttons = ["size4","size6","size10","size20"]
 var myModal = new bootstrap.Modal(document.getElementById('myModal'))
 var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var tiles = []; var length; var end;
 var newDirection = 1;
 var direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
-var size = 20;
+document.getElementById("start-button").addEventListener("click", startGame)
+document.getElementById("size4").addEventListener("click", function () {
+    if (end == false) {return}
+    ctx.clearRect(0, 0, 400, 400)
+    size = 4; 
+    for (let buttonchild of buttons) {document.getElementById(buttonchild).setAttribute("class","btn btn-secondary")}
+    this.setAttribute("class", "btn btn-primary")
+    startGame();
+})
+document.getElementById("size6").addEventListener("click", function () {
+    if (end == false) {return}
+    ctx.clearRect(0, 0, 400, 400)
+    size = 6; 
+    for (let buttonchild of buttons) {document.getElementById(buttonchild).setAttribute("class","btn btn-secondary")}
+    this.setAttribute("class", "btn btn-primary")
+    startGame()
+})
+document.getElementById("size10").addEventListener("click", function () {
+    if (end == false) {return}
+    ctx.clearRect(0, 0, 400, 400)
+    size = 10; 
+    for (let buttonchild of buttons) {document.getElementById(buttonchild).setAttribute("class","btn btn-secondary")}
+    this.setAttribute("class", "btn btn-primary")
+    startGame()
+})
+document.getElementById("size20").addEventListener("click", function () {
+    if (end == false) {return}
+    ctx.clearRect(0, 0, 400, 400)
+    size = 20; 
+    for (let buttonchild of buttons) {document.getElementById(buttonchild).setAttribute("class","btn btn-secondary")}
+    this.setAttribute("class", "btn btn-primary")
+    startGame()
+})
 
 
 function startGame() {
@@ -49,7 +81,7 @@ function drawCanvas() {
     for (let tile of tiles) {
         if (tile.head) {ctx.fillStyle = "#718f58";} 
         else if (tile.snake) {ctx.fillStyle = "#98bb7c";} 
-        else if (tile.food) {ctx.fillStyle = "#E6A99F";} 
+        else if (tile.food) {ctx.fillStyle = "#eb7665";} 
         else {ctx.fillStyle = "#808080";}
         ctx.fillRect(relativeSize*0.1 + tile.x*relativeSize, relativeSize*0.1 + tile.y*relativeSize, tile.width*0.9, tile.height*0.9)
     }
@@ -61,7 +93,7 @@ function main() {
         moveSnakeHead();
         if (end == true) return
         growSnake();
-        document.getElementById("score").innerText = `Score: ${length}`
+        document.getElementById("score").innerText = `Length: ${length}`
         newDirection = changeDirection();
         deleteSnakeTile(length);
         drawCanvas();
@@ -164,8 +196,16 @@ function growSnake() {
 }
 endGame = () => {
     document.getElementById("reset-button").addEventListener("click", startGame)
+    document.getElementById("reset-button").innerText = "Try Again"
     document.getElementById("modal-text").innerText = `Your final length was: ${length}`
     myModal.show(); 
     end = true;
 }
-gameWin = () => {alert("you win!!!"); end = true}
+gameWin = () => {
+    drawCanvas()
+    document.getElementById("reset-button").addEventListener("click", startGame)
+    document.getElementById("reset-button").innerText = "Play Again"
+    document.getElementById("modal-text").innerText = "Congratulations you won!"
+    myModal.show(); 
+    end = true;
+}
