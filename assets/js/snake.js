@@ -198,7 +198,7 @@ endGame = () => {
     document.getElementById("reset-button").addEventListener("click", startGame)
     document.getElementById("reset-button").innerText = "Try Again"
     document.getElementById("modal-text").innerText = `Your final length was: ${length}`
-    myModal.show(); 
+    myModal.show();
     end = true;
 }
 gameWin = () => {
