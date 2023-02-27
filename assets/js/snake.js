@@ -1,4 +1,4 @@
-class SnakeTile {
+class SnakeTile { //declaring SnakeTile prototype
     constructor(x,y) {
         this.height = Math.floor(400/size);
         this.width = Math.floor(400/size);
@@ -10,12 +10,16 @@ class SnakeTile {
         this.age = 0;
     }
 }
+
+//declaring variables
 var size = 4;
 var buttons = ["size4","size6","size10","size20"]
 var myModal = new bootstrap.Modal(document.getElementById('myModal'))
 var c = document.getElementById("gameCanvas"); var ctx = c.getContext("2d"); var tiles = []; var length; var end;
 var newDirection = 1;
 var direction = 1; //0 = up, 1 = right, 2 = down, 3 = left
+
+// adding event listeners to the 5 buttons change difficulty only work when the game is ended
 document.getElementById("start-button").addEventListener("click", startGame)
 document.getElementById("size4").addEventListener("click", function () {
     if (end == false) {return}
@@ -51,6 +55,7 @@ document.getElementById("size20").addEventListener("click", function () {
 })
 
 
+//functions
 function startGame() {
     document.getElementById("start-button").setAttribute("class","btn btn-info d-none")
     tiles = [];
@@ -59,24 +64,19 @@ function startGame() {
     length = 1;
     end = false;
     instantiateTiles();
-    if (size % 2 == 0) {
-        tiles[(size**2-size)/2].snake = true;
-        tiles[(size**2-size)/2].head = true;}
-    else {
-        tiles[Math.floor((size**2)/2)].snake = true;
-        tiles[Math.floor((size**2)/2)].head = true;}
+    tiles[(size**2-size)/2].snake = true; tiles[(size**2-size)/2].head = true; // setting initial position
     genFood();
     drawCanvas();
-    main();
+    main(); //recursive function running every 3s/size of board
 }
-function instantiateTiles() {
+function instantiateTiles() { //makes a new instance of a tile class size**2 times
     for (let i = 0; i < size**2; i++) {
         let y = Math.floor(i/size)
         let x = i%size
         tiles.push(new SnakeTile(x,y))
     }
 }
-function drawCanvas() {  
+function drawCanvas() {  //using a canvas the array of tiles are coloured according to attributes of their corresponding object
     let relativeSize = Math.floor(400/size)
     for (let tile of tiles) {
         if (tile.head) {ctx.fillStyle = "#718f58";} 
@@ -86,7 +86,7 @@ function drawCanvas() {
         ctx.fillRect(relativeSize*0.1 + tile.x*relativeSize, relativeSize*0.1 + tile.y*relativeSize, tile.width*0.9, tile.height*0.9)
     }
 }
-function main() {
+function main() { //recursive function that controls the main body of the game
     setTimeout( function onTick() {
         ageSnakeTile();
         direction = newDirection
@@ -101,7 +101,7 @@ function main() {
     }, 3000/size);
 
 };
-function moveSnakeHead() {
+function moveSnakeHead() { //taking the position and direction of the head it calculates where to move it or if it will move to a game ending tile calls the game end function
     for (let tile of tiles.filter(tile => tile.head == true)) {
         let tileCurrent = tile
         tile.head = false
@@ -128,8 +128,8 @@ function moveSnakeHead() {
             tiles.filter(newTile => newTile.y == tileCurrent.y).filter(newTile => newTile.x == (tileCurrent.x - 1))[0].head = true;}
     }
 };
-function changeDirection() {  //0 = up, 1 = right, 2 = down, 3 = left
-    document.onkeydown = function(event) {
+function changeDirection() {  //listens to arrow keys or wasd and changes the direction
+    document.onkeydown = function(event) { //0 = up, 1 = right, 2 = down, 3 = left
         switch (event.key) {
             case "w":
                 if (direction == 2) break;
@@ -167,25 +167,25 @@ function changeDirection() {  //0 = up, 1 = right, 2 = down, 3 = left
     };
     return newDirection
 };
-function ageSnakeTile() {
+function ageSnakeTile() { // all snake tiles upon creation age once every tick
     for (tile of tiles.filter(tile => tile.snake == true)) {
         ++tile.age
     };
 };
-function deleteSnakeTile(length) {
-    for (tile of tiles.filter(tile => tile.snake == true)) {
+function deleteSnakeTile(length) { //the oldest tile is checked to see if it has been around longer than the length, if so it is deleted
+    for (let tile of tiles.filter(tile => tile.snake == true)) {
         if ((length) == tile.age) {
             tile.age = 0;
             tile.snake = false;
         }
     }
 }
-function genFood() {
-    if (tiles.filter(tile => tile.snake == false).length == 0) {gameWin()}
+function genFood() { //checks there are still free tiles, if not win, if so add food to a random one of those tiles
+    if (tiles.filter(tile => tile.snake == false).length == 0) {gameWin(); return}
     tiles.filter(tile => tile.snake == false)[Math.floor(Math.random()*tiles.filter(tile => tile.snake == false).length)].food = true
 
 }
-function growSnake() {
+function growSnake() { //if the head tile moves over to a tile with food == true, change the tile to food == false, generate a new food and increase the snake length by 1
     if (tiles.filter(tile => tile.head == true)[0].food == true) {
         tiles.filter(tile => tile.head == true)[0].food = false;
         ++length;
@@ -194,7 +194,7 @@ function growSnake() {
         return true
     } else return false
 }
-endGame = () => {
+endGame = () => { //pulls up a modal with buttons to restart or click off the modal to change difficulty
     document.getElementById("reset-button").addEventListener("click", startGame)
     document.getElementById("reset-button").innerText = "Try Again"
     document.getElementById("modal-text").innerText = `Your final length was: ${length}`
@@ -202,7 +202,7 @@ endGame = () => {
     myModal.show();
     end = true;
 }
-gameWin = () => {
+gameWin = () => { //pulls up a modal with buttons to restart or click off the modal to change difficulty
     drawCanvas()
     document.getElementById("reset-button").addEventListener("click", startGame)
     document.getElementById("reset-button").innerText = "Play Again"
