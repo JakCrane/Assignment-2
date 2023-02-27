@@ -1,15 +1,9 @@
 
 python3 -m http.server
-#01854f 
-#0cb26a
 
-https://www.schemecolor.com/vintage-pastels.php
+wanted to add: 
+    leader board
 
+things i would fix given infinite time:
+    score doesnt reset to 0 and socket.special doesnt reset to false if there is a combo at the beginning of the game
 
-add explanation of how to play
-77700 -berk-the-turk
-
-leaderboard
-
-
-record own noises for merging
