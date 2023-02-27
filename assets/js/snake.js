@@ -198,6 +198,7 @@ endGame = () => {
     document.getElementById("reset-button").addEventListener("click", startGame)
     document.getElementById("reset-button").innerText = "Try Again"
     document.getElementById("modal-text").innerText = `Your final length was: ${length}`
+    document.getElementsByClassName("modal-title").innerText = "You lost :(" 
     myModal.show();
     end = true;
 }
@@ -206,6 +207,7 @@ gameWin = () => {
     document.getElementById("reset-button").addEventListener("click", startGame)
     document.getElementById("reset-button").innerText = "Play Again"
     document.getElementById("modal-text").innerText = "Congratulations you won!"
+    document.getElementById("modal-title").innerText = "Well done!"
     myModal.show(); 
     end = true;
 }

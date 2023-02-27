@@ -30,15 +30,16 @@
     <main>
         <div class="py-2"><h1 class="text-center py-2">Snake</h1></div>
         <div class="row gy-2">
-            <div class="col-4 order-2 order-1-lg">
+            <div class="col-12 col-sm-4 order-2 order-1-lg">
                 <div class="container info-container">
                     <h2 class="text-center" id="score">Length: 1</h2>
                 </div>
             </div>
-            <div class="col-6 offset-3 offset-lg-0 order-1 order-2-lg" id="snake-panel">
-                <canvas id="gameCanvas" height="400" width="400"></canvas>
+            <div class="col-6 offset-sm-3 offset-lg-0 order-1 order-2-lg">
+              <div id="snake-panel"> 
+              <canvas id="gameCanvas" height="400" width="400"></canvas>
                 <button id="start-button" class="btn">Start</button>
-            </div> 
+            </div> </div> 
             <div class="col-8 col-lg-3 order-3">
               <ul class="flex-lg-column flex-row list-group">
                 <li class="list-group-item"><button id="size4" class="btn btn-primary">Easy</button></li>
@@ -53,7 +54,7 @@
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title">You lose.</h5>
+            <h5 id="modal-title"></h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
