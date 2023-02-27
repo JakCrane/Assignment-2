@@ -75,7 +75,8 @@ class QueuePosition {
 var socketArr = [];var queueArr = [];var scoreTotal = 0;var scorePopup = 0;
 var soundNum = 0;
 var place = new Audio('assets/sounds/mixkit-message-pop-alert-2354.mp3');
-    
+var myModal = new bootstrap.Modal(document.getElementById('myModal'))
+
 document.addEventListener("DOMContentLoaded", function() {
     startGame(); 
     for (let socketEl of document.getElementsByClassName("socket")) {
@@ -89,14 +90,14 @@ document.addEventListener("DOMContentLoaded", function() {
             if (!checkEnd()) {refreshSockets(); endGame()} ;
         });
     }
-    document.getElementById("reset-button").addEventListener("click", endGame)
+    document.getElementById("end-button").addEventListener("click", endGame)
 });
 startGame = () => {
     initialiseSockets();
     initialiseQueue();
     refreshQueue();
     if(!merge()) {refreshSockets()};
-    try {socketArr.filter(socket => socket.special == true)[0] = false}
+    try { for (let socket of socketArr.filter(socket => socket.special == true)) {socket.special = false}}
     catch {console.log("no initial specials")}
     scoreTotal = 0;
     document.getElementById("score").innerText = `Score: ${scoreTotal}`;
@@ -186,14 +187,31 @@ checkEnd = () => {
     return false
 }
 endGame = () => {
-    document.getElementById("reset-button").addEventListener("click", startGame)
+    document.getElementById("reset-button").addEventListener("click", restartGame)
     document.getElementById("reset-button").innerText = "Try Again"
-    document.getElementById("modal-text").innerText = `Your final length was: ${length}`
-    myModal.show(); 
+    document.getElementById("modal-text").innerText = `Your final Score was: ${scoreTotal}`
     end = true;
+    myModal.show(); 
 }
-resetGame = () => {
-    console.log("reset")
+restartGame = () => {
+    for (let socket of socketArr) {
+        socket.type = "empty";
+        socket.root = false
+        socket.readyToMerge = false
+        socket.age = Math.random();
+        socket.special = false
+    }
+    let randomPosition = generateRandomSocketPosition(10)
+    for (let i = 0; i < 7; i++) {socketArr[randomPosition[i]].type = "grass"}
+    socketArr[randomPosition[7]].type = "bush"
+    socketArr[randomPosition[8]].type = "bush"
+    socketArr[randomPosition[9]].type = "tree"
+    for (let i = 0; i<3; i++) {getAndProgressQueue()}
+    if(!merge()) {refreshSockets()};
+    try { for (let socket of socketArr.filter(socket => socket.special == true)) {socket.special = false}}
+    catch {console.log("no initial specials")}
+    scoreTotal = 0;
+    document.getElementById("score").innerText = `Score: ${scoreTotal}`;
 }
 getAndProgressQueue = () => {
     let oldType = queueArr[0].type;
@@ -212,6 +230,3 @@ getRandomQueueType = () => {
         return "grass"
     }
 }
-  
-
-//ask richey to sort position absolute
