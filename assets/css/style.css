@@ -3,7 +3,6 @@ body {
 }
 .navbar-yellow {
     background-color: rgb(253, 228, 116);
-    color: rgb(253, 228, 116);
 }
 /*~~~~~~~~~~~ colours ~~~~~~~~~~~~*/
 .empty {
@@ -20,7 +19,6 @@ body {
     width:9vw;
     max-width: 90px;
     background-repeat: no-repeat;
-    background-image: center;
     background-size: contain;
 }
 .socket-row {
@@ -35,7 +33,6 @@ body {
     margin: 3px;    
     border-radius: 10px;
     background-repeat: no-repeat;
-    background-image: center;
     background-size: contain;
 }
 #position0 {
@@ -59,16 +56,6 @@ body {
 .hutspecial {background-image: url(/assets/images/hutspecial.webp);}
 .house {background-image: url(/assets/images/house.webp);}
 .housespecial {background-image: url(/assets/images/housespecial.webp);}
-
-
-#score-popup {
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-.special {
-    background-color: #dacf35;
-}
 .info-container {
     margin-top: 5px;
     background-color: #76ADA8;
@@ -76,7 +63,6 @@ body {
     padding: 10px;
 }
 .info-container > button {
-    
     background-color:#E6A99F;
     border: 1px solid #916c67;
 }
