@@ -148,7 +148,7 @@ function refreshQueue() {
     }
 }
 function propagate() {
-    for (let socket of socketArr.filter(socket => socket.type != "empty" && socket.readyToMerge == false)) {
+    for (let socket of socketArr.filter(socket => socket.type != "empty" && socket.type != "house" && socket.readyToMerge == false)) {
         if (socket.canMerge() == true) {propagate(); break;}
     }
 }
