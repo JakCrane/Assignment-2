@@ -72,8 +72,7 @@ class QueuePosition {
         this.number = `position${i}`;
     }    
 }
-var socketArr = [];var queueArr = [];var scoreTotal = 0;var scorePopup = 0;
-var soundNum = 0;
+var socketArr = [], queueArr = [], scoreTotal = 0, scorePopup = 0, soundNum = 0; //initialising variables
 var place = new Audio('assets/sounds/mixkit-message-pop-alert-2354.mp3');
 var myModal = new bootstrap.Modal(document.getElementById('myModal'));
 
