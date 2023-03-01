@@ -16,8 +16,9 @@ js validator:
     Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (socketArr, socketEl, soundNum, refreshSockets, merge, checkEnd, endGame)
 html validator:
     
-css validator
-clean up code
+css validator:
+
+
 Features - merge:
     Score / End game
         this section is there to add a competitive aspect to the game. to make it feel like youre playing against everyone else by being able to compare highscores like in the arcade game age. However if you start off poorly or make a mistake I thought it would be useful to be able to restart. 
