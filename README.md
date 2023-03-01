@@ -1,13 +1,6 @@
 
 python3 -m http.server
 
-wanted to add: 
-    leader board
-    accessiblity
-
-things i would fix given infinite time:
-    score doesnt reset to 0 and socket.special doesnt reset to false if there is a combo at the beginning of the game
-    if the sockets are ever full it ends the game, even if they merge
 
 Overarching style:
     this theme was meant to be a blend of retro arcade colours from the colour palette and the general wireframe structure of old flashgame websites like newsground
@@ -35,6 +28,18 @@ How the code works - merge:
 How the code works - snake:
     The code works similarly to merge by having a class of tile objects and displaying them using a canvas. However, the snake game is directed using the arrow keys not the mouse and auto moves after a set time period. This logic works by changing the head position relative to a global direction variable. If the head tile moves either out of bounds or over a current snake tile then the game ends. If the head moves over a food tile then the global length variable is incremented by one the food attribute is set back to false and a new random tile is made a food tile. The age of the snake tile is used to calculate how long the snake should be and when a snake tile gets too old it is converted back to a blank tile
 
+Future Features: 
+    leader board:
+        Because of how my javascript is set up alot of the values are public and able to be edited from the command line. This means that someone could break the code and add values or names I do not want being displayed in the webpage. Lacking time and sufficient knowledge to protect the code I decided to not add this into my game.
+    snake size slider:
+        Ideally I wanted a slider to be able to set the difficulty of the game. Due to the time pressure of the project, I couldnt add this function.
+
+Known Bugs - merge:
+    If the random starting position results in 3 grass being nexto eachother then they will combine at the start. This was ideal as it added variance to the starting positions but the score doesnt reset to 0 and special attribute doesnt reset to false. This means you can start with points. This doesnt affect functionality in the game but does make it look less professional and thought out.
+    
+    There are some inconsistencies with whether the special atribute is passed upwards to the socket made from merging special socket. This hasn't been fully playtested but has been noticed sometimes.
+
+    If the sockets are ever full it ends the game, even if they have the possibility of merging down and freeing sockets.
 
 Acknowledgements: 
     Richey Malhotra - Supervisor

@@ -70,6 +70,9 @@ body {
     background-color:#916c67;
 }
 /*~~~~~~~~~~~~~ snake ~~~~~~~~~~~~~~*/
+.vh-75 {
+    height: 75vh;
+  }
 #snake-panel {
     position:relative;
     height: 60vh;
@@ -89,4 +92,18 @@ body {
 .list-group-item {
     background-color: rgba(0,0,0,0);
     border: rgba(0,0,0,0) 0px solid;
+}
+#size4, #size6, #size10, #size20 {
+    width:100%;
+    min-width: 96px;
+}
+@media screen and (max-width: 576px) {
+    .w-25 {
+        width: 100% !important;
+    }
+  }
+@media screen and (min-width: 992px) {
+    .w-25 {
+        width: 100% !important;
+    }
 }
