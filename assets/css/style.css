@@ -81,10 +81,10 @@ body {
 }
 #gameCanvas {
     position: absolute;
-    width: 75vh;
+    width: 60vh;
     max-width: 80vw;
     max-height: 80vw;
-    height: 75vh;
+    height: 60vh;
     padding:30px;
     background-color: rgb(255, 233, 134);
     border: solid 2px rgb(134, 123, 71);
@@ -92,10 +92,10 @@ body {
 }
 #start-button {
     position:absolute;
-    width: 75vh;
+    width: 60vh;
     max-width: 80vw;
     max-height: 80vw;
-    height: 75vh;
+    height: 60vh;
     background-color: #98bb7c;
     border-radius: 20px;
 }

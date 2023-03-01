@@ -8,16 +8,19 @@ Overarching style:
 js validator: 
     Functions declared within loops referencing an outer scoped variable may lead to confusing semantics. (socketArr, socketEl, soundNum, refreshSockets, merge, checkEnd, endGame)
 html validator:
-    
+    ![html validator screenshot](https://github.com/JakCrane/js-game/blob/main/readme-content/html-checker.PNG)
 css validator:
+    ![css validator screenshot](https://github.com/JakCrane/js-game/blob/main/readme-content/css-checker.PNG)
 
 Purpose:
     I spent alot of my childhood playing free videogames from the online community so the purpose of my game is to be fun and the value of the game would be it is a good way to relieve stress.
-Deployment:
 
+Deployment:
+    I deployed my site using github pages
 Features - merge:
     Score / End game
-        this section is there to add a competitive aspect to the game. to make it feel like youre playing against everyone else by being able to compare highscores like in the arcade game age. However if you start off poorly or make a mistake I thought it would be useful to be able to restart. 
+        this section is there to add a competitive aspect to the game. to make it feel like youre playing against everyone else by being able to compare highscores like in the arcade game age. However if you start off poorly or make a mistake I thought it would be useful to be able to restart.
+         
     game body
         this is large and central on the screen. the general framework of this game was
     queue
