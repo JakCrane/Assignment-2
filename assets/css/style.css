@@ -22,7 +22,7 @@ body {
     background-size: contain;
 }
 .socket-row {
-    width:60vw;
+    width:59vw;
     max-width: 600px;
     margin:auto;
     padding:10px;
@@ -72,6 +72,7 @@ body {
 /*~~~~~~~~~~~~~ snake ~~~~~~~~~~~~~~*/
 .vh-75 {
     height: 75vh;
+    max-height:80vw;
   }
 #snake-panel {
     position:relative;
@@ -80,14 +81,23 @@ body {
 }
 #gameCanvas {
     position: absolute;
-    width: 60vh;
-    height: 60vh;
+    width: 75vh;
+    max-width: 80vw;
+    max-height: 80vw;
+    height: 75vh;
+    padding:30px;
+    background-color: rgb(255, 233, 134);
+    border: solid 2px rgb(134, 123, 71);
+    border-radius: 20px;
 }
 #start-button {
     position:absolute;
-    width: 60vh;
-    height: 60vh;
-    background-color: #98bb7c
+    width: 75vh;
+    max-width: 80vw;
+    max-height: 80vw;
+    height: 75vh;
+    background-color: #98bb7c;
+    border-radius: 20px;
 }
 .list-group-item {
     background-color: rgba(0,0,0,0);
