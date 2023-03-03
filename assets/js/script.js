@@ -132,13 +132,13 @@ function refreshSockets() {
             document.getElementById(`${socket.x}-${socket.y}`).setAttribute("alt", `socket containing ${socket.type}`);
         }
     }
-    if (soundNum == -2 || -1) {return;}
-    else if (soundNum == 0) {place.play();}
-    else if (soundNum == 1) {place.play();}
-    else if (soundNum == 2) {place.play();}
-    else if (soundNum == 3) {place.play();}
-    else {place.play();}
-    soundNum++;
+    //if (soundNum == -2 || -1) {return;}
+    //else if (soundNum == 0) {place.play();}
+    //else if (soundNum == 1) {place.play();}
+    //else if (soundNum == 2) {place.play();}
+    //else if (soundNum == 3) {place.play();}
+    //else {place.play();}
+    //soundNum++;
 }
 function refreshQueue() {
     for (let queue of queueArr) {
@@ -148,7 +148,7 @@ function refreshQueue() {
 }
 function propagate() {
     for (let socket of socketArr.filter(socket => socket.type != "empty" && socket.type != "house" && socket.readyToMerge == false)) {
-        if (socket.canMerge() == true) {propagate(); break;}
+        if (socket.canMerge() == true) {propagate(); return;}
     }
 }
 function merge() { //need to get it to display the socket being placed, then merge then display then repeat if needed
@@ -158,7 +158,7 @@ function merge() { //need to get it to display the socket being placed, then mer
         if (toMerge.length == 0) {return false;}
         try {socketArr.filter(socket => socket.root == true)[0].root = false;}
         catch (error) {}
-  			for (let socket of toMerge) {socket.readyToMerge = false;}
+  		for (let socket of toMerge) {socket.readyToMerge = false;}
         toMerge.sort((a,b) => a.age < b.age ? -1:1);
         toMerge[0].root = true;
         switch (toMerge[0].type) {
