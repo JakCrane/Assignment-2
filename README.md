@@ -1,6 +1,3 @@
-1. preload sound
-2. 
-
 # JavaScript Webgames
 
 Jack's Retro Games is a fun website with 2 games on it. These games are meant to give the user a positive emotional experience by reminding them of fun games from the past. The games are simple and easy to use so the site is accessible to a wide audience.
@@ -54,18 +51,32 @@ All the sprites were made on piskel by tracing previous pixel art. The special a
 
 ## How the code works - Merge
 
-The code initialises a class of socket objects and then works by altering the atributes of each socket then periodically updating what each socket should look like on the html. The logic of the merge function is when 3 or more sockets are connected (directly adjacent not diagonal) there must be atleast 1 socket with a type match with two of its neighbors. When this condition is satisfied it sets an attribute of readyToMerge to true and propagates this attribute value to all connected sockets. Once the value has stopped propagating it merges the sockets setting the most recently placed one to the value above its current, and the others back to empty. If 4 or more are connected then more points are rewarded and a slightly different sprite is shown. When no socket has the type attribute empty it is assumed that the game is lost and ends the game. The end game opens up a modal to reset the game and displays the final score.
+The code initialises a class of socket objects and then works by altering the atributes of each socket then periodically updating what each socket should look like on the html. 
+
+![Code for sockets](./readme-content/socket-class.PNG?raw=true) 
+
+The logic of the merge function is when 3 or more sockets are connected (directly adjacent not diagonal) there must be atleast 1 socket with a type match with two of its neighbors.
+
+![Code for checking if it can merge](./readme-content/canmerge.PNG?raw=true) 
+
+When this condition is satisfied it sets an attribute of readyToMerge to true and propagates this attribute value to all connected sockets. 
+
+![Code for merging](./readme-content/merge.PNG?raw=true)
+
+Once the value has stopped propagating it merges the sockets setting the most recently placed one to the value above its current, and the others back to empty. If 4 or more are connected then more points are rewarded and a slightly different sprite is shown. When no socket has the type attribute empty it is assumed that the game is lost and ends the game. The end game opens up a modal to reset the game and displays the final score.
 
 ## Features - Snake
 
 ### Main Body
 
 This  is how you interact with the game. It displays the snake and food in distinct colours. It is a HTML canvas and is locked at an aspect ratio of 1:1.
+
 ![Main Body Feature screenshot](https://github.com/JakCrane/js-game/blob/main/readme-content/snake-body.PNG?raw=true)
 
 ### Score
 
 As a game I was focused on making it feel very visual and when you do something well you can see the score ticking up. This is why I felt the length was a nice addition to remind the player how well theyre doing.
+
 ![Main Body Feature screenshot](https://github.com/JakCrane/js-game/blob/main/readme-content/btn-score.PNG?raw=true)
 
 ### Buttons
@@ -74,7 +85,19 @@ They allow the player to customise the difficulty. Through my own experiences I 
 
 ## How the code works - Snake
 
-The code works similarly to merge by having a class of tile objects and displaying them using a canvas. However, the snake game is directed using the arrow keys not the mouse and auto moves after a set time period. This logic works by changing the head position relative to a global direction variable. If the head tile moves either out of bounds or over a current snake tile then the game ends. If the head moves over a food tile then the global length variable is incremented by one the food attribute is set back to false and a new random tile is made a food tile. The age of the snake tile is used to calculate how long the snake should be and when a snake tile gets too old it is converted back to a blank tile.
+The code works similarly to merge by having a class of tile objects and displaying them using a canvas. 
+
+![Code for sockets](./readme-content/snake-class.PNG?raw=true)
+
+However, the snake game is directed using the arrow keys not the mouse and auto moves after a set time period. 
+
+![Code for sockets](./readme-content/change-direction.PNG?raw=true)
+
+This logic works by changing the head position relative to a global direction variable. 
+
+![Code for sockets](./readme-content/move-head.PNG?raw=true)
+
+If the head tile moves either out of bounds or over a current snake tile then the game ends. If the head moves over a food tile then the global length variable is incremented by one the food attribute is set back to false and a new random tile is made a food tile. The age of the snake tile is used to calculate how long the snake should be and when a snake tile gets too old it is converted back to a blank tile.
 
 ## Future Features
 
@@ -101,7 +124,7 @@ Functions declared within loops referencing an outer scoped variable may lead to
 
 ## LightHouse
 
-The performance of the sight was low. I feel like adding a load the game button would improve performance. Additionally, I had to preload the sound files for performance improvements.
+The performance of the sight was low, which was to be expected as games are more computationally intense than other interactive websites. To ensure this doesnt affect usability I could add a loading bar and or some indication. Additionally, I could have preloaded the sound files for performance improvements. This includes putting the loading of the sound files in the head.
 ![Screenshot of Lighthouse analysis](./readme-content/lighthouse.PNG)
 
 ## Known Bugs - Merge

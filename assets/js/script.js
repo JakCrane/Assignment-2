@@ -41,7 +41,6 @@ class Socket {
         if (parseInt(this.y) == 5) {return null;}
         return socketArr.filter(socket => socket.x == parseInt(this.x)).filter(socket => socket.y == (parseInt(this.y) + 1))[0].readyToMerge;
     } 
-    
     get typeMatch() {
         if (this.type == "empty") return 0;
         let typeMatch = 0;
@@ -179,8 +178,7 @@ function merge() { //need to get it to display the socket being placed, then mer
         }
         refreshSockets();
         merge();
-    }, 250);
-    
+    }, 250);  
 }
 function checkEnd() {
     if (socketArr.filter(socket => socket.type == "empty").length == 0) {return false;}
